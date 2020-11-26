@@ -1,5 +1,14 @@
 
-
 a {
   color: #00B7FF;
 }
+
+#main_map{
+    height: 600px;
+    text-align: center;
+    margin: auto; 
+    border: 2px solid black;
+    width: 1750px;
+    padding: 0px;
+}
+
