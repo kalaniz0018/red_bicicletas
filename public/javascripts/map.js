@@ -9,7 +9,13 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
 
-L.marker([-34.6012424,-58.3861497]).addTo(mymap);
-L.marker([-34.596932,-58.3808287]).addTo(mymap);
-L.marker([-34.599564,-58.3778777]).addTo(mymap);
-
+$.ajax({
+    dataType: "json",
+    url: "api/bicicletas",
+    success: function(result){
+        console.log(result);
+        result.bicicletas.forEach(function(bici){
+            L.marker(bici.ubicacion, {title: bici.id}).addTo(mymap);
+        });
+    }
+});
