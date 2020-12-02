@@ -1,4 +1,5 @@
 var express = require('express');
+const Bicicleta = require('../models/bicicleta');
 var router = express.Router();
 
 /* GET users listing. */
@@ -7,3 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+
+
+

@@ -17,5 +17,8 @@ $.ajax({
         result.bicicletas.forEach(function(bici){
             L.marker(bici.ubicacion, {title: bici.id}).addTo(mymap);
         });
+    },
+    error: function (request, status, error) {
+        console.log(request.responseText);
     }
 });
