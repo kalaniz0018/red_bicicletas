@@ -29,7 +29,7 @@ describe('Bicicleta API', () => {
             var aBici = '{"id": 100 , "color":"rojo", "modelo":"pista", "lat":-34, "lng":-54 }';
             request.post({
                 headers: headers,
-                url: 'http://localhost:5000/api/bicicletas/create',
+                url: base_url + '/create',
                 body: aBici
             }, function (error, response, body) {
                 expect(response.statusCode).toBe(200);
