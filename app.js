@@ -52,6 +52,7 @@ app.get('/login', function(req, res){
   res.render('session/login');
 });
 
+
 app.post('/login', function(req, res, next){
   //passport
 });
