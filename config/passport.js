@@ -4,7 +4,7 @@ const Usuario = require('../models/usuario');
 
 
 passport.use(new LocalStrategy(
-    (email, password, done)=>{
+    function (email, password, done){
         //we search the user by his/her email
         Usuario.findOne({email: email}, (err, usuario)=>{
             //If there is a error
@@ -16,7 +16,7 @@ passport.use(new LocalStrategy(
 
             //Everthing is OK. Execute the callaback
             return done(null, usuario)
-        })
+        });
     }
 ));
 
