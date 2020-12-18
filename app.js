@@ -19,6 +19,9 @@ var tokenRouter = require('./routes/token');
 const store = new session.MemoryStore;
 
 var app = express();
+
+app.set('secretKey', 'jwt_pwd_!!223344');
+
 app.use(session({
   cookie: {maxAge: 240 * 60 * 60 *1000},
   store: store,
@@ -129,7 +132,10 @@ app.use('/token', tokenRouter);
 
 
 app.use('/users', usersRouter);
+
 app.use('/bicicletas', loggedIn, bicicletasRouter);
+
+
 app.use('/api/bicicletas',validarUsuario, bicicletasAPIRouter);
 app.use('/api/usuarios', usuariosAPIRouter);
 
@@ -165,7 +171,7 @@ function validarUsuario(req, res, next){
     }else{
 
       req.body._userId = decoded.id;
-      
+
       console.log('jwt verify : ' + decoded);
       next();
     }
