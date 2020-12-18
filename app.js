@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('./config/passport');
 const session = require('express-session');
+const jwt = require('jsonwebtoken');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -27,6 +29,7 @@ app.use(session({
 
 
 var mongoose = require('mongoose');
+const { isRegExp } = require('util');
 
 var mongoDB = 'mongodb://localhost/red_bicicletas';
 mongoose.connect (mongoDB, { useNewUrlParser: true});
@@ -127,7 +130,7 @@ app.use('/token', tokenRouter);
 
 app.use('/users', usersRouter);
 app.use('/bicicletas', loggedIn, bicicletasRouter);
-app.use('/api/bicicletas', bicicletasAPIRouter);
+app.use('/api/bicicletas',validarUsuario, bicicletasAPIRouter);
 app.use('/api/usuarios', usuariosAPIRouter);
 
 // catch 404 and forward to error handler
@@ -154,5 +157,19 @@ function loggedIn(req, res, next){
     res.redirect('/login');
   }
 };
+
+function validarUsuario(req, res, next){
+  jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded){
+    if(err){
+      res.json({status:"error", message: err.message, data:null});
+    }else{
+
+      req.body._userId = decoded.id;
+      
+      console.log('jwt verify : ' + decoded);
+      next();
+    }
+  });
+}
 
 module.exports = app;
