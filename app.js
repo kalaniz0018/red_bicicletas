@@ -107,6 +107,7 @@ app.get('/resetPassword/:token', (req, res, next)=>{
   });
 });
 
+
 app.post('/resetPassword', (req, res)=>{
   if(req.body.password != req.body.confirm_password) {
     res.render('session/resetPassword', {errors: {confirm_password: {message: 'No coinciden las contraseñas'}}});
