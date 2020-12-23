@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -29,12 +30,15 @@ app.use(session({
   resave: true,
   secret: 'red_bicis_!!!%&/&____234234'
 })); 
-
-
 var mongoose = require('mongoose');
 const { isRegExp } = require('util');
 
-var mongoDB = 'mongodb://localhost/red_bicicletas';
+//mongodb+srv://admin:<password>@cluster0.6hty2.mongodb.net/<dbname>?retryWrites=true&w=majority
+//Si estoy en el ambiente de desarrollador usar
+//var mongoDB = 'mongodb://localhost/red_bicicletas';
+//Sino usar
+//var mongoDB = 'mongodb+srv://admin:AcfnzwZwEVDJhtTA@cluster0.6hty2.mongodb.net/<dbname>?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGO_URI;
 mongoose.connect (mongoDB, { useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;

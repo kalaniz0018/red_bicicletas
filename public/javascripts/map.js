@@ -14,7 +14,7 @@ $.ajax({
     url: "api/bicicletas",
     success: function(result){
         console.log(result);
-        result.bicicletas.forEach(function(bici){
+        result.bicicleta.forEach(function(bici){
             L.marker(bici.ubicacion, {title: bici.id}).addTo(mymap);
         });
     },
@@ -22,3 +22,4 @@ $.ajax({
         console.log(request.responseText);
     }
 });
+
