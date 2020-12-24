@@ -153,6 +153,17 @@ app.use('/google48f44513280c9d94', function(req, res) {
   res.sendFile('public/google48f44513280c9d94.html');
 });
 
+app.get('/auth/google',
+    passport.authenticate('google', { scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.profile.emails.read'
+    ]}));
+
+    app.get('/auth/google/callback', passport.authenticate('google', {
+      successRedirect: '/',
+      failureRedirect: '/error'
+    })
+    );
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
