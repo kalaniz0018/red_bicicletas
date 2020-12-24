@@ -66,7 +66,9 @@ in this case a Unique Value (mongooese doesn't have a define propertie for uniqu
  usuarioSchema.methods.validPassword = function(password){
      return bcrypt.compareSync(password, this.password);
  }   
-
+ usuarioSchema.methods.findOneOrCreateByGoogle = function(profile, cb) {
+  return (cb(profile));
+}
  //cb stands for callback
 //We add a method called resrvar
 usuarioSchema.methods.reservar = function (biciId, desde, hasta, cb){

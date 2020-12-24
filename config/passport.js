@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const Usuario = require('../models/usuario');
 
 
@@ -18,6 +19,20 @@ passport.use(new LocalStrategy(
             return done(null, usuario)
         });
     }
+));
+
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callBackURL: process.env.HOST + '/auth/google/callback'
+},
+function(accesToken, refreshToken, profile, cb) {
+    console.log(profile);
+    usuario.findOneOrCreateByGoogle(profile, function(err, user) {
+        return cb(err, user);
+    });
+}
 ));
 
 //cb(callback)

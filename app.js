@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('./config/passport');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const jwt = require('jsonwebtoken');
 
 
@@ -20,9 +21,7 @@ var tokenRouter = require('./routes/token');
 const store = new session.MemoryStore;
 
 var app = express();
-
 app.set('secretKey', 'jwt_pwd_!!223344');
-
 app.use(session({
   cookie: {maxAge: 240 * 60 * 60 *1000},
   store: store,
@@ -39,6 +38,8 @@ const { isRegExp } = require('util');
 //Sino usar
 //var mongoDB = 'mongodb+srv://admin:AcfnzwZwEVDJhtTA@cluster0.6hty2.mongodb.net/<dbname>?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGO_URI;
+
+
 mongoose.connect (mongoDB, { useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
